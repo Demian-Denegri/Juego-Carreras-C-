@@ -37,4 +37,4 @@ dotnet run
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia [MIT](LICENSE).
+Este proyecto está bajo la licencia [MIT](LICENSE)..
