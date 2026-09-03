@@ -1,0 +1,26 @@
+# Build results
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.nupkg.metadata
+*.snupkg
+packages/
+
+# Test results
+TestResults/
+[Tt]est[Rr]esult*/
+
+# Rider
+.idea/
+
+# macOS
+.DS_Store
