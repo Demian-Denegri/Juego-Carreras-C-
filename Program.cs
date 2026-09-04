@@ -1,5 +1,5 @@
 ﻿using Juego_Carrera;
-//Vehiculo auto = new();
+Vehiculo auto = new();
 //auto.Mostrar();
 //bool salir = false;
 
@@ -27,6 +27,5 @@
 //    auto.Mostrar();
 //} while (!salir);
 Mapa mapa = new Mapa();
-mapa.RutaGiroIzquierda();
-mapa.RutaDerecha();
-mapa.RutaGiroIzquierda();
+//mapa.PantallaInicio();
+mapa.MostrarCircuito();
