@@ -7,9 +7,9 @@
 
         public void Mostrar()
         {
-            Console.Clear();
+            
             Console.SetCursorPosition(this.X, this.Y);
-            Console.Write("╩");
+            Console.Write("^");
         }
         public void MoverDerecha()
         {

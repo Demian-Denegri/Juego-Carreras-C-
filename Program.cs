@@ -27,5 +27,8 @@ Vehiculo auto = new();
 //    auto.Mostrar();
 //} while (!salir);
 Mapa mapa = new Mapa();
-//mapa.PantallaInicio();
+mapa.PantallaInicio();
 mapa.MostrarCircuito();
+mapa.scroll();
+
+
