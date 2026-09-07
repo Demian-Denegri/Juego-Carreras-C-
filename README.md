@@ -6,7 +6,7 @@ Un juego de carreras en consola escrito en C# (.NET). Controlás un auto que deb
 
 El jugador maneja un vehículo 🚗 que se mueve sobre un circuito dibujado en la terminal. La carretera se arma con paredes (`.`), y el objetivo es avanzar por la ruta **sin chocarse** con los bordes.
 
-> ⚠️ **Estado del proyecto:** está en una fase inicial de desarrollo. Actualmente se dibuja el recorrido del mapa, y el control del vehículo con las flechas del teclado está implementado pero comentado (a la espera de integrarlo con la detección de choques).
+> ⚠️ **Estado del proyecto:** está en una fase intermedia de desarrollo. Actualmente se dibuja el recorrido del mapa, el control del vehículo con las flechas del teclado está implementado, función score implementada y pantallas de inicio y final de juego. queda pendiente la implementación de las coliciones.
 
 ## 🚀 Requisitos
 
@@ -31,9 +31,7 @@ dotnet run
 
 ## 🎯 Próximos pasos (ideas)
 
-- Vincular el control por teclado (flechas) con el vehículo.
 - Detectar colisiones con las paredes de la carretera.
-- Agregar puntaje, velocidad y dificultad creciente.
 
 ## 📄 Licencia
 
