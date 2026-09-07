@@ -28,5 +28,10 @@
         {
             this.X--;
         }
+
+        public void Choque()
+        {
+
+        }
     }
 }

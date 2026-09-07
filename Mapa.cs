@@ -8,6 +8,7 @@
         private int LargoEspcios { get; set; } = 15;
         public int InicioX { get; set; }
         private int InicioXOriginal;
+        private int score = 0;
         public int CentroCarril => InicioXOriginal + LargoPared + LargoEspcios / 2; //para que la nave aparezca ne el centro
         private List<(string fila, int x)> filasActuales = new List<(string, int)>();
         private List<int> circuitoActual;
@@ -21,7 +22,8 @@
 
         private string ConstruirFila(int LargoPared, int LargoEspcios)//Armo el calculo de una sola fila
         {
-            string pared = new string('.', LargoPared);
+
+            string pared = new string('█', LargoPared);
             string espacios = new string(' ', LargoEspcios);
             string fila = pared + espacios + pared;
             return fila;
@@ -33,6 +35,7 @@
 
         //Tipos: 1 = recta, 2 = giro der, 3 = giro izq, 4 = giro der corto, 5 = giro izq corto
         {
+
             new() { 2, 3, 4, 5 },
             new() { 2, 3, 5, 4 },
             new() { 2, 4, 3, 5 },
@@ -47,6 +50,7 @@
             new() { 3, 5, 4, 2 },
             new() { 1, 5, 2, 5 },
             new() { 1, 4, 3, 4 },
+
          };
         #endregion Lista Circuitos Posibles
 
@@ -161,14 +165,26 @@
 
         public void PantallaInicio()
         {
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine(" $$$$$$\\                            $$$$$$$\\            $$\\                      \r\n$$  __$$\\                           $$  __$$\\           \\__|                     \r\n$$ /  \\__| $$$$$$\\   $$$$$$\\        $$ |  $$ | $$$$$$\\  $$\\ $$\\    $$\\  $$$$$$\\  \r\n$$ |       \\____$$\\ $$  __$$\\       $$ |  $$ |$$  __$$\\ $$ |\\$$\\  $$  |$$  __$$\\ \r\n$$ |       $$$$$$$ |$$ |  \\__|      $$ |  $$ |$$ |  \\__|$$ | \\$$\\$$  / $$$$$$$$ |\r\n$$ |  $$\\ $$  __$$ |$$ |            $$ |  $$ |$$ |      $$ |  \\$$$  /  $$   ____|\r\n\\$$$$$$  |\\$$$$$$$ |$$ |            $$$$$$$  |$$ |      $$ |   \\$  /   \\$$$$$$$\\ \r\n \\______/  \\_______|\\__|            \\_______/ \\__|      \\__|    \\_/     \\_______|\r\n                                                                                 \r\n                                                                                 \r\n                                                                                 ");
             Console.WriteLine("Controles: ");
             Console.WriteLine("Mover Auto Izquierda: « (Left Arrow)");
             Console.WriteLine("Mover Auto Derecha: » (Right Arrow)");
             Console.WriteLine("Preciona cualquier ENTER para comenzar:");
             Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.Clear();
             MostrarCircuito();// crea el circuito inicial, para permitir que movimiento mapa comience a crear nuevos circuitos
+        }
+        public void PantallaFinal()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("  ______    ______   __       __  ________         ______   __     __  ________  _______  \r\n /      \\  /      \\ /  \\     /  |/        |       /      \\ /  |   /  |/        |/       \\ \r\n/$$$$$$  |/$$$$$$  |$$  \\   /$$ |$$$$$$$$/       /$$$$$$  |$$ |   $$ |$$$$$$$$/ $$$$$$$  |\r\n$$ | _$$/ $$ |__$$ |$$$  \\ /$$$ |$$ |__          $$ |  $$ |$$ |   $$ |$$ |__    $$ |__$$ |\r\n$$ |/    |$$    $$ |$$$$  /$$$$ |$$    |         $$ |  $$ |$$  \\ /$$/ $$    |   $$    $$< \r\n$$ |$$$$ |$$$$$$$$ |$$ $$ $$/$$ |$$$$$/          $$ |  $$ | $$  /$$/  $$$$$/    $$$$$$$  |\r\n$$ \\__$$ |$$ |  $$ |$$ |$$$/ $$ |$$ |_____       $$ \\__$$ |  $$ $$/   $$ |_____ $$ |  $$ |\r\n$$    $$/ $$ |  $$ |$$ | $/  $$ |$$       |      $$    $$/    $$$/    $$       |$$ |  $$ |\r\n $$$$$$/  $$/   $$/ $$/      $$/ $$$$$$$$/        $$$$$$/      $/     $$$$$$$$/ $$/   $$/ \r\n                                                                                          \r\n                                                                                          \r\n                                                                                          ");
+            MostrarScore();
+            Console.Write("PRECIONE CUALQUIER TECLA PARA SALIR");
+            Console.ReadLine();
+            Environment.Exit(0);
         }
         private void MovimientoMapa()//logica para el movimiento del mapa
         {
@@ -181,7 +197,21 @@
         {
             MovimientoMapa();
             DibujarFilas(0, filasActuales);
+            Score();//subo un punto por cada frame generado
+            MostrarScore();
         }
+
+        private int Score()// sube el puntaje en 1pts cada vez que se lo llama
+        {
+            score++;
+            return score;
+        }
+        public void MostrarScore()//muestra el score en pantalla
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine($"SCORE = {score}");
+        }
+
     }
 }
 
