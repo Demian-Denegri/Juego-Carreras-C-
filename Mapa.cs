@@ -6,8 +6,18 @@
         private int InicioY { get; set; } = 0;
         private int LargoPared { get; set; } = 10;
         private int LargoEspcios { get; set; } = 15;
-        public int InicioX { get; set; } = (Console.WindowWidth / 2) - 18; //establezco el inicio para que el circuitoq eude centrado en la ventana
+        public int InicioX { get; set; }
+        private int InicioXOriginal;
+        public int CentroCarril => InicioXOriginal + LargoPared + LargoEspcios / 2; //para que la nave aparezca ne el centro
         private List<(string fila, int x)> filasActuales = new List<(string, int)>();
+        private List<int> circuitoActual;
+
+        public Mapa()
+        {
+            InicioX = (Console.WindowWidth / 2) - 18;
+            InicioXOriginal = InicioX;
+            circuitoActual = GenerarCircuito();
+        }
 
         private string ConstruirFila(int LargoPared, int LargoEspcios)//Armo el calculo de una sola fila
         {
@@ -19,7 +29,7 @@
 
         #region Lista Circuitos Posibles
         private readonly List<List<int>> circuitosDisponibles = new() //una lista que contiene dentro otra lista que contiene enteros
-                                                                      //(los enteros son las didrrecciones de la pista).
+                                                                       //(los enteros son las didrrecciones de la pista).
 
         //Tipos: 1 = recta, 2 = giro der, 3 = giro izq, 4 = giro der corto, 5 = giro izq corto
         {
@@ -103,22 +113,12 @@
             return circuitosDisponibles[random.Next(circuitosDisponibles.Count)]; // selecciono de manera aleatoria uno de los circuitos disponibles
         }
 
-        public void DibujarFilas(int inicioY, List<(string fila, int x)> filas)
+        private void ConstruirFilas(List<int> circuito)
         {
+            filasActuales.Clear();
+            InicioX = InicioXOriginal;
 
-            foreach (var (fila, x) in filas) //desempaqueta cada tupla de la lista en dos variables: "fila"(el string) y "x"(su posición horizontal)
-            {
-                Console.SetCursorPosition(x, inicioY);
-                Console.Write(fila);
-                inicioY++;
-            }
-
-        }
-
-        public void MostrarCircuito()
-        {
-            Console.Clear();
-            foreach (int c in GenerarCircuito())
+            foreach (int c in circuito)
             {
                 switch (c)
                 {
@@ -139,11 +139,24 @@
                         break;
                 }
             }
-            DibujarFilas(0, filasActuales);// dibuja en pantalla el circuito completo
-                                           // (todas las filas acumuladas de las 3 rutas
-                                           // (Filas actuales es la turlpa que tiene el
-                                           // string de la fila completo y la cordenada x de inicio)),
-                                           // arrancando desde arriba (inicioY = 0)
+        }
+
+        public void DibujarFilas(int inicioY, List<(string fila, int x)> filas)
+        {
+
+            foreach (var (fila, x) in filas) //desempaqueta cada tupla de la lista en dos variables: "fila"(el string) y "x"(su posición horizontal)
+            {
+                Console.SetCursorPosition(x, inicioY);
+                Console.Write(fila);
+                inicioY++;
+            }
+
+        }
+
+        private void MostrarCircuito()
+        {
+            ConstruirFilas(circuitoActual);
+            DibujarFilas(0, filasActuales);
         }
 
         public void PantallaInicio()
@@ -154,6 +167,8 @@
             Console.WriteLine("Mover Auto Derecha: » (Right Arrow)");
             Console.WriteLine("Preciona cualquier ENTER para comenzar:");
             Console.ReadLine();
+            Console.Clear();
+            MostrarCircuito();// crea el circuito inicial, para permitir que movimiento mapa comience a crear nuevos circuitos
         }
         private void MovimientoMapa()//logica para el movimiento del mapa
         {
@@ -162,16 +177,14 @@
             int ultimoX = filasActuales[filasActuales.Count - 1].x; // guardo la cordenada de x de la ultima fila que se creo
             filasActuales.Insert(0, (ConstruirFila(LargoPared, LargoEspcios), ultimoX));// agrego la fila nueva arriba, con su config
         }
-        public void scroll() //bucle para que se mueva el fondo(esto es temporal para realizar las pruevas)
+        public void ScrollFrame() //mueve y dibuja un frame del fondo
         {
-            for (int i = 0; i < 100; i++)
-            {
-                MovimientoMapa();
-                DibujarFilas(0, filasActuales);
-                Thread.Sleep(200);
-            }
+            MovimientoMapa();
+            DibujarFilas(0, filasActuales);
         }
-
-
     }
 }
+
+
+
+

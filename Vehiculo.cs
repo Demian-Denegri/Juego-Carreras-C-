@@ -2,30 +2,31 @@
 {
     internal class Vehiculo
     {
-        private int X { get; set; } = 10;
-        private int Y { get; set; } = 10;
+        private int X { get; set; }
+        private int Y { get; set; }
+
+        public Vehiculo(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
 
         public void Mostrar()
         {
-            
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.SetCursorPosition(this.X, this.Y);
             Console.Write("^");
+            Console.ResetColor();
         }
         public void MoverDerecha()
         {
+
             this.X++;
+
         }
         public void MoverIzquierda()
         {
             this.X--;
-        }
-        public void MoverArriba()
-        {
-            this.Y--;
-        }
-        public void MoverAbajo()
-        {
-            this.Y++;
         }
     }
 }
