@@ -5,7 +5,7 @@
 
         private int InicioY { get; set; } = 0;
         private int LargoPared { get; set; } = 10;
-        private int LargoEspcios { get; set; } = 15;
+        private int LargoEspcios { get; set; } = 20;
         public int InicioX { get; set; }
         private int InicioXOriginal;
         private int score = 0;
@@ -36,20 +36,16 @@
         //Tipos: 1 = recta, 2 = giro der, 3 = giro izq, 4 = giro der corto, 5 = giro izq corto
         {
 
-            new() { 2, 3, 4, 5 },
-            new() { 2, 3, 5, 4 },
-            new() { 2, 4, 3, 5 },
-            new() { 2, 4, 5, 3 },
-            new() { 2, 5, 3, 4 },
-            new() { 2, 5, 4, 3 },
-            new() { 3, 2, 4, 5 },
-            new() { 3, 2, 5, 4 },
-            new() { 3, 4, 2, 5 },
-            new() { 3, 4, 5, 2 },
-            new() { 3, 5, 2, 4 },
-            new() { 3, 5, 4, 2 },
-            new() { 1, 5, 2, 5 },
-            new() { 1, 4, 3, 4 },
+            new() { 2, 3, 4, 5 },//ok
+            new() { 2, 3, 5, 4 },//ok
+            new() { 2, 5, 3, 4 },//ok
+            new() { 2, 5, 4, 3 },//ok
+            new() { 3, 2, 4, 5 },//ok
+            new() { 3, 2, 5, 4 },//ok
+            new() { 3, 4, 2, 5 },//ok
+            new() { 3, 4, 5, 2 },//ok
+            new() { 1, 5, 2, 5 },//ok
+            new() { 1, 4, 3, 4 },//ok
 
          };
         #endregion Lista Circuitos Posibles
@@ -181,8 +177,8 @@
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("  ______    ______   __       __  ________         ______   __     __  ________  _______  \r\n /      \\  /      \\ /  \\     /  |/        |       /      \\ /  |   /  |/        |/       \\ \r\n/$$$$$$  |/$$$$$$  |$$  \\   /$$ |$$$$$$$$/       /$$$$$$  |$$ |   $$ |$$$$$$$$/ $$$$$$$  |\r\n$$ | _$$/ $$ |__$$ |$$$  \\ /$$$ |$$ |__          $$ |  $$ |$$ |   $$ |$$ |__    $$ |__$$ |\r\n$$ |/    |$$    $$ |$$$$  /$$$$ |$$    |         $$ |  $$ |$$  \\ /$$/ $$    |   $$    $$< \r\n$$ |$$$$ |$$$$$$$$ |$$ $$ $$/$$ |$$$$$/          $$ |  $$ | $$  /$$/  $$$$$/    $$$$$$$  |\r\n$$ \\__$$ |$$ |  $$ |$$ |$$$/ $$ |$$ |_____       $$ \\__$$ |  $$ $$/   $$ |_____ $$ |  $$ |\r\n$$    $$/ $$ |  $$ |$$ | $/  $$ |$$       |      $$    $$/    $$$/    $$       |$$ |  $$ |\r\n $$$$$$/  $$/   $$/ $$/      $$/ $$$$$$$$/        $$$$$$/      $/     $$$$$$$$/ $$/   $$/ \r\n                                                                                          \r\n                                                                                          \r\n                                                                                          ");
-            MostrarScore();
             Console.Write("PRECIONE CUALQUIER TECLA PARA SALIR");
+            MostrarScore();
             Console.ReadLine();
             Environment.Exit(0);
         }
@@ -212,6 +208,19 @@
             Console.WriteLine($"SCORE = {score}");
         }
 
+        public bool HayColicion(int x, int y)//x, y = posición del auto en la consola
+        {
+            bool choque = false;
+            var (fila, xFila) = filasActuales[y];// accedo a la tupla de esa fila: el string y la columna donde arranca
+            int indice = x - xFila ;
+            char caracter = fila[indice];
+            
+            if (caracter != ' ')
+            {
+                choque = true;
+            }
+            return choque;
+        }
     }
 }
 

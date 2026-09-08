@@ -1,5 +1,4 @@
 ﻿using Juego_Carrera;
-using System.Drawing;
 
 Console.BackgroundColor = ConsoleColor.Gray;
 Console.Clear();
@@ -23,8 +22,14 @@ while (!salir)
             case ConsoleKey.RightArrow:
                 auto.MoverDerecha();
                 break;
+
         }
     }
+    if (mapa.HayColicion(auto.X, auto.Y))
+    {
+        break;
+    }
+
     mapa.ScrollFrame();// se sige generadno mapa de forma infinita hasta precionar escape
     auto.Mostrar();
     Thread.Sleep(50);// 1fps (2 lineas nueva cada 1 segundo )

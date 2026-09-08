@@ -2,8 +2,8 @@
 {
     internal class Vehiculo
     {
-        private int X { get; set; }
-        private int Y { get; set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
 
         public Vehiculo(int x, int y)
         {
@@ -29,9 +29,5 @@
             this.X--;
         }
 
-        public void Choque()
-        {
-
-        }
     }
 }
