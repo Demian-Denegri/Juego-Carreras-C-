@@ -6,8 +6,16 @@ bool salir = false;
 Mapa mapa = new Mapa();
 Vehiculo auto = new(mapa.CentroCarril, 25);
 mapa.PantallaInicio();
+bool derecha = false;
+bool izquierda = false;
 while (!salir)
 {
+    if (derecha == true)
+    {
+        auto.MoverDerecha();
+    }
+    else if (izquierda == true)
+        auto.MoverIzquierda();
     if (Console.KeyAvailable)
     {
         ConsoleKeyInfo tecla = Console.ReadKey(true);
@@ -17,10 +25,12 @@ while (!salir)
                 salir = true;
                 break;
             case ConsoleKey.LeftArrow:
-                auto.MoverIzquierda();
+                izquierda = true;
+                derecha = false;
                 break;
             case ConsoleKey.RightArrow:
-                auto.MoverDerecha();
+                derecha = true;
+                izquierda = false;
                 break;
 
         }
@@ -32,7 +42,8 @@ while (!salir)
 
     mapa.ScrollFrame();// se sige generadno mapa de forma infinita hasta precionar escape
     auto.Mostrar();
-    Thread.Sleep(50);// 1fps (2 lineas nueva cada 1 segundo )
+    mapa.VelocidadMapa();
 
+   
 }
 mapa.PantallaFinal();

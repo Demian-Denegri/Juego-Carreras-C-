@@ -3,12 +3,11 @@
     internal class Mapa
     {
 
-        private int InicioY { get; set; } = 0;
         private int LargoPared { get; set; } = 10;
         private int LargoEspcios { get; set; } = 20;
         public int InicioX { get; set; }
         private int InicioXOriginal;
-        private int score = 0;
+        private int score { get; set; }
         public int CentroCarril => InicioXOriginal + LargoPared + LargoEspcios / 2; //para que la nave aparezca ne el centro
         private List<(string fila, int x)> filasActuales = new List<(string, int)>();
         private List<int> circuitoActual;
@@ -141,7 +140,7 @@
             }
         }
 
-        public void DibujarFilas(int inicioY, List<(string fila, int x)> filas)
+        private void DibujarFilas(int inicioY, List<(string fila, int x)> filas)
         {
 
             foreach (var (fila, x) in filas) //desempaqueta cada tupla de la lista en dos variables: "fila"(el string) y "x"(su posición horizontal)
@@ -197,12 +196,11 @@
             MostrarScore();
         }
 
-        private int Score()// sube el puntaje en 1pts cada vez que se lo llama
+        private void Score()// sube el puntaje en 1pts cada vez que se lo llama
         {
             score++;
-            return score;
         }
-        public void MostrarScore()//muestra el score en pantalla
+        private void MostrarScore()//muestra el score en pantalla
         {
             Console.SetCursorPosition(0, 0);
             Console.WriteLine($"SCORE = {score}");
@@ -220,6 +218,19 @@
                 choque = true;
             }
             return choque;
+        }
+        public void VelocidadMapa()
+        {
+            if (score <= 50)//velocidad lenta al arrancar
+            {
+                Thread.Sleep(50);
+            }
+            else if (score >= 50 && score < 200)//velocidad normal
+                Thread.Sleep(30);// 33fps aprox
+            else if (score >= 200 && score < 500)
+                Thread.Sleep(20);//velocidad rapida
+            else if (score >= 500)
+                Thread.Sleep(15);//velocidad muy rapida
         }
     }
 }
